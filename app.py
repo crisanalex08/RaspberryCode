@@ -52,12 +52,12 @@ async def send_recurring_telemetry(device_client):
 
     if SIMULATE_DATA:
         print("Simulating data")
-        send_data(generate_mock_temp_hum_data(), device_client)
+        await send_data(generate_mock_temp_hum_data(), device_client)
     else:
         print("Reading data from serial port")
         serial1 = serial.Serial('/dev/ttyACM0', 9600)
           
-        send_data(serial1.readline(), device_client) 
+        await send_data(serial1.readline(), device_client) 
     pass
 
 async def send_data(telemetry_data, device_client):
