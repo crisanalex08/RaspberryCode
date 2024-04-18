@@ -5,6 +5,8 @@ import asyncio
 import time
 from azure.iot.device import Message
 import random
+from mock_data_sender import generate_mock_temp_hum_data
+from mock_data_sender import generate_mock_co2_data
 
 SIMULATE_DATA = True
 MESSAGE_TIMESPAN = 2000
@@ -53,21 +55,11 @@ async def send_recurring_telemetry(device_client):
             await device_client.send_message(msg)
             print("Sending message: {}".format(msg))
             time.sleep(MESSAGE_TIMESPAN/1000)
+    else:
+        print("Sending data from sensor")
+        while True:
+            # Implement the telemetry sending logic here
+            pass
 
-# Generate mock data for the data sender
-def generate_mock_temp_hum_data():
-    temperature = random.uniform(20, 30)  # Generate a random temperature between 20 and 30 degrees Celsius
-    humidity = random.uniform(40, 60)  # Generate a random humidity between 40% and 60%
-    
-    # Return the generated data as a dictionary
-    msg_txt_formatted = '{{"temperature": {temperature}, "humidity": {humidity}}}'
-    return msg_txt_formatted.format(temperature=temperature, humidity=humidity)
-
-def generate_mock_co2_data():
-    co2 = random.uniform(400, 500)  # Generate a random CO2 level between 400 and 500 ppm
-    
-    # Return the generated data as a dictionary
-    msg_txt_formatted = '{{"co2": {co2}}'
-    return msg_txt_formatted.format(co2=co2)
 
 asyncio.run(main())
