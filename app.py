@@ -62,6 +62,7 @@ async def send_recurring_telemetry(device_client):
 
 async def send_data(telemetry_data, device_client):
     while True:
+        print(telemetry_data)
         msg = Message(telemetry_data)
         msg.content_encoding = "utf-8"
         msg.content_type = "application/json"
