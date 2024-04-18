@@ -29,10 +29,6 @@ def is_correct_connection_string():
 
 CONNECTION_STRING = os.getenv("IOTHUB_DEVICE_CONNECTION_STRING")
 
-if len(sys.argv) < 2:
-    print("You need to provide the device connection string as command line arguments.")
-    sys.exit(0)
-
 if not is_correct_connection_string():
     print("Device connection string is not correct.")
     sys.exit(0)
@@ -64,10 +60,6 @@ async def send_recurring_telemetry(device_client):
         send_data(serial1.readline(), device_client) 
     pass
 
-
-asyncio.run(main())
-
-
 async def send_data(telemetry_data, device_client):
     while True:
         msg = Message(telemetry_data)
@@ -76,3 +68,7 @@ async def send_data(telemetry_data, device_client):
         await device_client.send_message(msg)
         print("Sending message: {}".format(msg))
         time.sleep(MESSAGE_TIMESPAN/1000)
+
+asyncio.run(main())
+
+
