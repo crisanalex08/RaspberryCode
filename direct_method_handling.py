@@ -10,15 +10,15 @@ device_client = IoTHubDeviceClient.create_from_connection_string(conn_str)
 # connect the client.
 device_client.connect()
 
-def high_temperature():
+def high_temperature(payload):
     print("high_temperature method called")
     return
 
-def high_humidity():
+def high_humidity(payload):
     print("high_humidity method called")
     return
 
-def high_air_quality():
+def high_air_quality(payload):
     print("high_air_quality method called")
     return
 
@@ -30,7 +30,7 @@ def stop_fan():
     print("stop_fan method called")
     return
 
-def update_fan_speed():
+def update_fan_speed(payload):
     print("update_fan_speed method called")
     return
 
