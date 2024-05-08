@@ -10,23 +10,67 @@ device_client = IoTHubDeviceClient.create_from_connection_string(conn_str)
 # connect the client.
 device_client.connect()
 
+def high_temperature():
+    print("high_temperature method called")
+    return
+
+def high_humidity():
+    print("high_humidity method called")
+    return
+
+def high_air_quality():
+    print("high_air_quality method called")
+    return
+
+def start_fan():
+    print("start_fan method called")
+    return
+
+def stop_fan():
+    print("stop_fan method called")
+    return
+
+def update_fan_speed():
+    print("update_fan_speed method called")
+    return
 
 # Define behavior for handling methods
 def method_request_handler(method_request):
     # Determine how to respond to the method request based on the method name
-    if method_request.name == "method1":
+    if method_request.name == "high_temperature":
+        high_temperature(method_request.payload)
         payload = {"result": True, "data": "some data"}  # set response payload
         status = 200  # set return status code
-        print("executed method1")
-    elif method_request.name == "method2":
+        print("executed high_temperature")
+
+    elif method_request.name == "high_humidity":
+        high_humidity(method_request.payload)
         payload = {"result": True, "data": 1234}  # set response payload
         status = 200  # set return status code
-        print("executed method2")
-    else:
-        payload = {"result": False, "data": "unknown method"}  # set response payload
-        status = 400  # set return status code
-        print("executed unknown method: " + method_request.name)
+        print("executed high_humidity")
 
+    elif method_request.name == "high_air_quality":
+        high_air_quality(method_request.payload)
+        payload = {"result": False, "data": "high_air_quality method"}  # set response payload
+        status = 400  # set return status code
+        print("executed high_air_quality method: " + method_request.name)
+
+    elif method_request.name == "start_fan":
+        start_fan()
+        payload = {"result": True, "data": 1234}  # set response payload
+        status = 200  # set return status code
+        print("executed start_fan")
+
+    elif method_request.name == "stop_fan":
+        stop_fan()
+        payload = {"result": True, "data": 1234}  # set response payload
+        status = 200  # set return status code
+        print("executed stop_fan")
+
+    elif method_request.name == "update_fan_speed":
+        update_fan_speed(method_request.payload)
+        payload = {"result": True, "data": 1234}  # set response payload
+    
     # Send the response
     method_response = MethodResponse.create_from_method_request(method_request, status, payload)
     device_client.send_method_response(method_response)
