@@ -71,6 +71,10 @@ def method_request_handler(method_request):
         update_fan_speed(method_request.payload)
         payload = {"result": True, "data": 1234}  # set response payload
     
+    else:
+        # handle other unknown method requests
+        payload = {"result": False, "data": "unknown method"}
+        status = 404
     # Send the response
     method_response = MethodResponse.create_from_method_request(method_request, status, payload)
     device_client.send_method_response(method_response)
