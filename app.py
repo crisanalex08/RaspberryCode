@@ -34,18 +34,23 @@ print("Device connection string is correct.")
 
 
 async def main():
-    device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
-    
-    print("IoTHub Device Client Recurring Telemetry Sample")
-    print("Press Ctrl+C to exit")
-    loop = asyncio.get_event_loop()
+    try:
+        device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
+        
+        print("IoTHub Device Client Recurring Telemetry Sample")
+        print("Press Ctrl+C to exit")
+        loop = asyncio.get_event_loop()
 
-    await send_recurring_telemetry(device_client)
-    selection = input("Press Q to quit\n")
-    if selection == "Q" or selection == "q":
+        await send_recurring_telemetry(device_client)
+        selection = input("Press Q to quit\n")
+        if selection == "Q" or selection == "q":
+            device_client.shutdown()
+            print("Quitting...")
+            return
+    except Exception as e:
+        print("Unexpected error %s " % e)
         device_client.shutdown()
-        print("Quitting...")
-        return
+        print("Shutting down device client")
 
 
 async def send_recurring_telemetry(device_client):
