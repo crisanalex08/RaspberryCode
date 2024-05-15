@@ -30,6 +30,14 @@ def stop_fan():
     print("stop_fan method called")
     return
 
+def open_window():
+    print("open_window method called")
+    return
+
+def close_window():
+    print("close_window method called")
+    return
+
 def update_fan_speed(payload):
     print("update_fan_speed method called")
     return
@@ -71,6 +79,18 @@ def method_request_handler(method_request):
         update_fan_speed(method_request.payload)
         payload = {"result": True, "data": 1234}  # set response payload
     
+    elif method_request.name == "open_window":
+        open_window()
+        payload = {"result": True, "data": 1234}
+        status = 200
+        print("executed open_window")
+
+    elif method_request.name == "close_window":
+        close_window()
+        payload = {"result": True, "data": 1234}
+        status = 200
+        print("executed close_window")
+        
     else:
         # handle other unknown method requests
         payload = {"result": False, "data": "unknown method"}

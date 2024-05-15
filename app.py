@@ -16,9 +16,6 @@ MESSAGE_TIMESPAN = 2000
 EVENT_FAILED = "failed"
 EVENT_SUCCESS = "success"
 
-mq135_data = 0
-
-
 def is_correct_connection_string():
     m = re.search("HostName=.*;DeviceId=.*;", CONNECTION_STRING)
     if m:
@@ -37,14 +34,18 @@ print("Device connection string is correct.")
 
 
 async def main():
-    device_client = IoTHubDeviceClient.create_from_connection_string(
-        CONNECTION_STRING)
-
+    device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
+    
     print("IoTHub Device Client Recurring Telemetry Sample")
     print("Press Ctrl+C to exit")
     loop = asyncio.get_event_loop()
 
     await send_recurring_telemetry(device_client)
+    selection = input("Press Q to quit\n")
+    if selection == "Q" or selection == "q":
+        device_client.shutdown()
+        print("Quitting...")
+        return
 
 
 async def send_recurring_telemetry(device_client):
