@@ -37,7 +37,7 @@ async def main():
     try:
         global SIMULATE_DATA
         if len(sys.argv) > 1:
-            SIMULATE_DATA = bool(sys.argv[1])
+            SIMULATE_DATA = sys.argv[1].lower() == "true"
         else:
             SIMULATE_DATA = True
         print("SIMULATE_DATA: ", SIMULATE_DATA)
