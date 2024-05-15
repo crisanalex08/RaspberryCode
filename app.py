@@ -12,7 +12,7 @@ import os
 
 
 MESSAGE_TIMESPAN = 2000
-SIMULATE_DATA = True
+
 EVENT_FAILED = "failed"
 EVENT_SUCCESS = "success"
 
@@ -35,7 +35,7 @@ print("Device connection string is correct.")
 
 async def main():
     try:
-        
+        global SIMULATE_DATA
         if len(sys.argv) > 1:
             SIMULATE_DATA = sys.argv[1]
         else:
