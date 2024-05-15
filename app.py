@@ -10,7 +10,7 @@ from mock_data_sender import generate_mock_co2_data
 import serial
 import os
 
-SIMULATE_DATA = sys.argv[1] if len(sys.argv) > 1 else True
+SIMULATE_DATA = sys.argv[1] if len(sys.argv) > 1 else False
 MESSAGE_TIMESPAN = 2000
 
 EVENT_FAILED = "failed"
