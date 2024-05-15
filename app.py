@@ -61,18 +61,20 @@ async def main():
 
 async def send_recurring_telemetry(device_client):
     await device_client.connect()
+    if not SIMULATE_DATA:
+        for i in range(0, 15):
+                    print("Reading data from serial port")
+                    serial1 = serial.Serial('/dev/ttyACM0', 9600)
+                    serial1.readline()
+
     while True:
         if SIMULATE_DATA:
             print("Simulating data")
             await send_data(generate_mock_temp_hum_data(), device_client)
         else:
             #Skip the first 15 readings
-            for i in range(0, 15):
-                print("Reading data from serial port")
-                serial1 = serial.Serial('/dev/ttyACM0', 9600)
-                serial1.readline()
             
-            await send_data(serial1.readline(), device_client) 
+            await send_data(format_message(serial1.readline()), device_client) 
         time.sleep(MESSAGE_TIMESPAN/1000)
 
 
@@ -81,14 +83,15 @@ async def send_data(telemetry_data, device_client):
         msg = Message(telemetry_data)
         msg.content_encoding = "utf-8"
         msg.content_type = "application/json"
-        print("Sending message: {}".format(msg))
-        await device_client.send_message(msg)
+        #print("Sending message: {}".format(msg))
+        #await device_client.send_message(msg)
 
 def format_message(data):
+    data_arr = data.split(",")
     return {
-        "temperature": data["temperature"],
-        "humidity": data["humidity"],
-        "air_quality": data["air_quality"]
+        "gas": data_arr[0],
+        "co2": data_arr[1],
+        "tvoc": data_arr[2]
     }
 asyncio.run(main())
 
