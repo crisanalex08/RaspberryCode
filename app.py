@@ -40,6 +40,7 @@ async def main():
             SIMULATE_DATA = sys.argv[1]
         else:
             SIMULATE_DATA = True
+        print("SIMULATE_DATA: ", SIMULATE_DATA)
         device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
         print("argv: ", sys.argv)
         print("IoTHub Device Client Recurring Telemetry Sample")
