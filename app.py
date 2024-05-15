@@ -10,7 +10,7 @@ from mock_data_sender import generate_mock_co2_data
 import serial
 import os
 
-SIMULATE_DATA = sys.argv[1] if len(sys.argv) > 1 else False
+SIMULATE_DATA = sys.argv[2] if len(sys.argv) > 1 else False
 MESSAGE_TIMESPAN = 2000
 
 EVENT_FAILED = "failed"
@@ -36,7 +36,7 @@ print("Device connection string is correct.")
 async def main():
     try:
         device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
-        
+        print("argv: ", sys.argv)
         print("IoTHub Device Client Recurring Telemetry Sample")
         print("Press Ctrl+C to exit")
         loop = asyncio.get_event_loop()
