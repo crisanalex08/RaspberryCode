@@ -38,10 +38,6 @@ async def main():
         device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
         
         print("IoTHub Device Client Recurring Telemetry Sample")
-        if(SIMULATE_DATA):
-            print("Simulating data")
-        else:
-            print("Reading data from serial port")
         print("Press Ctrl+C to exit")
         loop = asyncio.get_event_loop()
 
